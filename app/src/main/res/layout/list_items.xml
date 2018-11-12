@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_16dp">
+
+    <TextView
+        android:id="@+id/title_view"
+        style="@style/Title"
+        tools:text="Bohemian Rhapsody" />
+
+    <TextView
+        android:id="@+id/overview_view"
+        style="@style/Overview"
+        tools:text="Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970. Hit songs become instant classics. When Mercury's increasingly wild lifestyle starts to spiral out of control, Queen soon faces its greatest challenge yet – finding a way to keep the band together amid the success and excess." />
+
+    <TextView
+        android:id="@+id/release_date_view"
+        style="@style/ReleaseDate"
+        tools:text="Release Date: 2018-10-24" />
+
+</LinearLayout>
