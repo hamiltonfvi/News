@@ -47,10 +47,16 @@ public class NewsAdapter extends ArrayAdapter<News> {
         overviewView.setText(currentNews.getOverview());
 
         // Find the TextView with the view ID for the Release Date of the news
-        TextView releaseDateView = listItemView.findViewById(R.id.release_date_view);
+        TextView releaseDateView = listItemView.findViewById(R.id.publication_date_view);
 
         // Get the version name from the current object
-        releaseDateView.setText(currentNews.getReleaseDate());
+        releaseDateView.setText(currentNews.getPublicationDate());
+
+        // Find the TextView with the view ID for the Release Date of the news
+        TextView url = listItemView.findViewById(R.id.url_view);
+
+        // Get the version name from the current object
+        url.setText(currentNews.getUrl());
 
         // Return the list item view tht is now showing the appropriate data
         return listItemView;

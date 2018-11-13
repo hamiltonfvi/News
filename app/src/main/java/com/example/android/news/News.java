@@ -13,9 +13,14 @@ public class News {
     private String mOverview;
 
     /**
-     * Release date of the news
+     * Author name of the news
      */
-    private String mReleaseDate;
+    private String mAuthorName;
+
+    /**
+     * Publication date of the news
+     */
+    private String mPublicationDate;
 
     /**
      * URL of the news
@@ -23,14 +28,25 @@ public class News {
     private String mUrl;
 
     /**
+     * Image of the news
+     */
+    private String mImageNews;
+
+    /**
      * @param title       is the title of the news
      * @param overview    is the overview of the news
-     * @param releaseDate is the release date of the news
+     * @param publicationDate is the publication date of the news
+     * @param authorName is the author of the news
+     * @param imageNews is the image of the news
+     * @param url is the url of the news
      */
-    public News(String title, String overview, String releaseDate) {
+    public News(String title, String authorName, String imageNews, String overview, String publicationDate, String url) {
         mTitle = title;
+        mAuthorName = authorName;
+        mImageNews = imageNews;
         mOverview = overview;
-        mReleaseDate = releaseDate;
+        mPublicationDate = publicationDate;
+        mUrl = url;
     }
 
     /**
@@ -38,6 +54,20 @@ public class News {
      */
     public String getTitle() {
         return mTitle;
+    }
+
+    /**
+     * Get the image of the news
+     */
+    public String getImageNews() {
+        return mImageNews;
+    }
+
+    /**
+     * Get the author of the news
+     */
+    public String getAuthorName() {
+        return mAuthorName;
     }
 
     /**
@@ -50,8 +80,15 @@ public class News {
     /**
      * Get the Release Date of the news
      */
-    public String getReleaseDate() {
-        return mReleaseDate;
+    public String getPublicationDate() {
+        return mPublicationDate;
+    }
+
+    /**
+     * Get the Url of the news
+     */
+    public String getUrl() {
+        return mUrl;
     }
 
 }

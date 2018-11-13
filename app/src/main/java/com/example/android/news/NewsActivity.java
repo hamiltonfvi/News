@@ -26,7 +26,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
      * URL for the news data from theguardian.com dataset
      */
     private static final String THE_GUARDIAN_DB_URL =
-            "https://api.themoviedb.org/3/discover/movie?page=1&sort_by=popularity.desc&language=en-US&api_key=f6acaa1998b745ce60ea2b344995c5f3";
+            "https://content.guardianapis.com/search?order-by=newest&show-tags=contribuitor&show-elements=image&show-fields=thumbnail&q=movies&api-key=f3f378a5-d90f-4c1d-ad21-77c4f50bc08c";
 
     /**
      * Constant value for the news loader ID. We can choose any integer.
