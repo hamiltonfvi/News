@@ -3,6 +3,7 @@ package com.example.android.news;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,8 +17,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
-
+import java.util.Date;
 
 /**
  * Helper methods related to requesting and receiving data from theguardian.com
@@ -41,8 +43,10 @@ public final class QueryUtils {
      * Query theguardian.com dataset and return a list of {@link News} objects.
      */
     public static List<News> fetchNewsData(String requestUrl) {
+
         // Create URL object
         URL url = createUrl(requestUrl);
+
         // Perform HTTP request to the URL and receive a JSON response back
         String jsonResponse = null;
         try {
@@ -50,8 +54,10 @@ public final class QueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
+
         // Extract relevant fields from the JSON response and create a list of {@link News}s
         List<News> news = extractFeatureFromJson(jsonResponse);
+
         // Return the list of {@link News}s
         return news;
     }
@@ -90,7 +96,7 @@ public final class QueryUtils {
             urlConnection.connect();
 
             // If the request was successful (response code 200),
-            // then read the input stream and pase the response.
+            // then read the input stream and parse the response.
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
@@ -152,7 +158,7 @@ public final class QueryUtils {
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
 
             // Extract the JSONArray associated with the key called "results",
-            JSONArray newsArray = baseJsonResponse.getJSONArray("results");
+            JSONArray newsArray = baseJsonResponse.getJSONObject("response").getJSONArray("results");
 
             // For each news in the newsArray, create an {@link News} object
             for (int i = 0; i < newsArray.length(); i++) {
@@ -164,23 +170,57 @@ public final class QueryUtils {
                 String title = currentNews.getString("webTitle");
 
                 // Extract the value for the key called "overview"
-                String overview = currentNews.getString("sectionName");
+                String category = currentNews.getString("sectionName");
 
-                // Extract the value for the key called "releaseDate"
-                String publicationDate = currentNews.getString("webPublicationDate");
+                //Tags elements
+                JSONArray tags = currentNews.getJSONArray("tags");
+
+                //If "tags" array is not null
+                String authorCompleteName = "";
+                if (!tags.isNull(0)) {
+                    JSONObject currentTag = tags.getJSONObject(0);
+
+                    //Author first name
+                    String authorFirstName = !currentTag.isNull("firstName") ? currentTag.getString("firstName") : "";
+
+                    //Author last name
+                    String authorLastName = !currentTag.isNull("lastName") ? currentTag.getString("lastName") : "";
+
+                    //Author Complete name
+                    authorCompleteName = StringUtils.capitalize(authorFirstName.toLowerCase().trim()) + " " + StringUtils.capitalize(authorLastName.toLowerCase().trim());
+                    if (authorFirstName.trim() != "" || authorLastName.trim() != "") {
+                        authorCompleteName = ("Author: ").concat(authorCompleteName);
+                    } else {
+                        authorCompleteName = "";
+                    }
+                }
 
                 // Extract the value for the key called "releaseDate"
                 String url = currentNews.getString("webUrl");
 
-                // Extract the value for the key called "title"
-                String author = currentNews.getString("firstName");
+                // Extract the value for the key called "fields" -> "thumbnail"
+                String image = currentNews.getJSONObject("fields").getString("thumbnail");
+                if (image == "") {
+                    image = "http://via.placeholder.com/500x500";
+                }
 
-                // Extract the value for the key called "title"
-                String image = currentNews.getString("thumbnail");
+                // Extract the value for the key called "releaseDate"
+                String publicationDate = currentNews.getString("webPublicationDate");
+
+                //Format publication date
+                Date formattedDate = null;
+                try {
+                    formattedDate = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(publicationDate);
+                } catch (Exception e) {
+                    // If an error is thrown when executing the above statement in the "try" block,
+                    // catch the exception here, so the app doesn't crash. Print a log message
+                    // with the message from the exception.
+                    Log.e("QueryUtils", "Problem parsing the news date", e);
+                }
 
                 // Create a new {@link News} object with the title, overview, releaseDate,
                 // from the JSON response.
-                News news1 = new News(title, overview, publicationDate, image, author, url);
+                News news1 = new News(title, category, url, authorCompleteName, formattedDate, image);
 
                 // Add the new {@link News to the list of news.
                 news.add(news1);

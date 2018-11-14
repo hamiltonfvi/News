@@ -12,19 +12,32 @@
         tools:text="Bohemian Rhapsody" />
 
     <ImageView
+        android:contentDescription="@string/thumbnail_image"
         android:id="@+id/image_news_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dimen_10dp"
+        android:paddingBottom="@dimen/dimen_10dp"/>
 
     <TextView
-        android:id="@+id/overview_view"
+        android:id="@+id/author_view"
+        style="@style/PublicationDate"
+        tools:text="Hamilton Beach" />
+
+    <TextView
+        android:id="@+id/category_view"
         style="@style/Overview"
         tools:text="Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970. Hit songs become instant classics. When Mercury's increasingly wild lifestyle starts to spiral out of control, Queen soon faces its greatest challenge yet – finding a way to keep the band together amid the success and excess." />
 
     <TextView
         android:id="@+id/publication_date_view"
         style="@style/PublicationDate"
-        tools:text="Release Date: 2018-10-24" />
+        tools:text="2018-10-24" />
+
+    <TextView
+        android:id="@+id/publication_time_view"
+        style="@style/PublicationDate"
+        tools:text="12:05pm" />
 
     <TextView
         android:id="@+id/url_view"

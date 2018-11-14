@@ -7,9 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class NewsAdapter extends ArrayAdapter<News> {
 
@@ -36,29 +41,81 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         // Find the TextView with the view ID for the Title
         TextView titleView = listItemView.findViewById(R.id.title_view);
-
         // Get the version name from the current object
         titleView.setText(currentNews.getTitle());
 
-        // Find the TextView with the view ID for the Overview of the news
-        TextView overviewView = listItemView.findViewById(R.id.overview_view);
-
+        // Find the TextView with the view ID for the Author
+        TextView authorView = listItemView.findViewById(R.id.author_view);
         // Get the version name from the current object
-        overviewView.setText(currentNews.getOverview());
+        if (currentNews.getAuthorName() != "") {
+            authorView.setText(currentNews.getAuthorName());
 
-        // Find the TextView with the view ID for the Release Date of the news
-        TextView releaseDateView = listItemView.findViewById(R.id.publication_date_view);
+            //Set author name view as visible
+            authorView.setVisibility(View.VISIBLE);
+        } else {
+            //Set author name view as gone
+            authorView.setVisibility(View.GONE);
+        }
 
+        // Find the ImageView with the view ID for the Thumbnail Image
+        ImageView imageView = listItemView.findViewById(R.id.image_news_view);
         // Get the version name from the current object
-        releaseDateView.setText(currentNews.getPublicationDate());
+        Picasso.get().load(currentNews.getImageNews()).into(imageView);
 
-        // Find the TextView with the view ID for the Release Date of the news
+        // Find the TextView with the view ID for the Category of the news
+        TextView categoryView = listItemView.findViewById(R.id.category_view);
+        // Get the version name from the current object
+        categoryView.setText(currentNews.getCategory());
+
+        // Find the TextView with the view ID for the Publication Date of the news
+        // Find the TextView with view ID date
+        TextView dateView = null;
+        TextView timeView = null;
+        if (currentNews.getPublicationDate() != null) {
+            dateView = listItemView.findViewById(R.id.publication_date_view);
+            // Format the date string (i.e. "Mar 3, 1984")
+            String formattedDate = formatDate(currentNews.getPublicationDate()).concat(",");
+            // Display the date of the current earthquake in that TextView
+            dateView.setText(formattedDate);
+
+            // Find the TextView with view ID time
+            timeView = listItemView.findViewById(R.id.publication_time_view);
+            // Format the time string (i.e. "4:30PM")
+            String formattedTime = formatTime(currentNews.getPublicationDate());
+            // Display the time of the current earthquake in that TextView
+            timeView.setText(formattedTime);
+
+            //Set date & time views as visible
+            dateView.setVisibility(View.VISIBLE);
+            timeView.setVisibility(View.VISIBLE);
+        } else {
+            //Set date & time views as gone
+            dateView.setVisibility(View.GONE);
+            timeView.setVisibility(View.GONE);
+        }
+
+        // Find the TextView with the view ID for the Url of the news
         TextView url = listItemView.findViewById(R.id.url_view);
-
         // Get the version name from the current object
         url.setText(currentNews.getUrl());
 
         // Return the list item view tht is now showing the appropriate data
         return listItemView;
+    }
+
+    /**
+     * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
+     */
+    private String formatDate(Date dateObject) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+        return dateFormat.format(dateObject);
+    }
+
+    /**
+     * Return the formatted date string (i.e. "4:30 PM") from a Date object.
+     */
+    private String formatTime(Date dateObject) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        return timeFormat.format(dateObject);
     }
 }

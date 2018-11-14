@@ -1,6 +1,8 @@
 package com.example.android.news;
 
 import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.content.Context;
@@ -26,7 +28,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
      * URL for the news data from theguardian.com dataset
      */
     private static final String THE_GUARDIAN_DB_URL =
-            "https://content.guardianapis.com/search?order-by=newest&show-tags=contribuitor&show-elements=image&show-fields=thumbnail&q=movies&api-key=f3f378a5-d90f-4c1d-ad21-77c4f50bc08c";
+            "https://content.guardianapis.com/search?order-by=newest&show-tags=contribuitor&show-fields=thumbnail&q=movies&api-key=f3f378a5-d90f-4c1d-ad21-77c4f50bc08c";
 
     /**
      * Constant value for the news loader ID. We can choose any integer.
@@ -50,7 +52,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_news);
 
         // Create a new adapter that takes the list of the news as input.
-        ListView newsListView = findViewById(R.id.listview_movie);
+        ListView newsListView = findViewById(R.id.listview_news);
 
         mEmptyStateTextView = findViewById(R.id.empty_view);
         newsListView.setEmptyView(mEmptyStateTextView);
@@ -70,10 +72,19 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 // Find the current news that was clicked on
                 News currentNews = mAdapter.getItem(position);
+
+                // Convert the String URL into a URI object (to pass into the Intent constructor)
+                Uri newsUri = Uri.parse(currentNews.getUrl());
+
+                // Create a new intent to view the news URI
+                Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsUri);
+
+                // Send the intent to launch a new activity
+                startActivity(websiteIntent);
             }
         });
 
-        // Get a reference to the ConnectivyManager to check state of the network connectivity
+        // Get a reference to the ConnectivityManager to check state of the network connectivity
         ConnectivityManager connMgr = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
 

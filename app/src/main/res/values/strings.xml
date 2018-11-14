@@ -5,4 +5,5 @@
     <!-- Error message when there is no internet connectivity [CHAR LIMIT=NONE] -->
     <string name="no_internet_connection">No internet connection.</string>
     <string name="recent_news">Recent News</string>
+    <string name="thumbnail_image">A Thumbnail of the image of the news</string>
 </resources>

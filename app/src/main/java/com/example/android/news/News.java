@@ -1,5 +1,7 @@
 package com.example.android.news;
 
+import java.util.Date;
+
 public class News {
 
     /**
@@ -8,9 +10,9 @@ public class News {
     private String mTitle;
 
     /**
-     * Overview of the news
+     * Category of the news
      */
-    private String mOverview;
+    private String mCategory;
 
     /**
      * Author name of the news
@@ -20,7 +22,7 @@ public class News {
     /**
      * Publication date of the news
      */
-    private String mPublicationDate;
+    private Date mPublicationDate;
 
     /**
      * URL of the news
@@ -33,18 +35,18 @@ public class News {
     private String mImageNews;
 
     /**
-     * @param title       is the title of the news
-     * @param overview    is the overview of the news
+     * @param title           is the title of the news
+     * @param category        is the category of the news
      * @param publicationDate is the publication date of the news
-     * @param authorName is the author of the news
-     * @param imageNews is the image of the news
-     * @param url is the url of the news
+     * @param authorName      is the author of the news
+     * @param imageNews       is the image of the news
+     * @param url             is the url of the news
      */
-    public News(String title, String authorName, String imageNews, String overview, String publicationDate, String url) {
+    public News(String title, String authorName, String imageNews, String category, Date publicationDate, String url) {
         mTitle = title;
         mAuthorName = authorName;
         mImageNews = imageNews;
-        mOverview = overview;
+        mCategory = category;
         mPublicationDate = publicationDate;
         mUrl = url;
     }
@@ -71,16 +73,16 @@ public class News {
     }
 
     /**
-     * Get the overview of the news
+     * Get the Category of the news
      */
-    public String getOverview() {
-        return mOverview;
+    public String getCategory() {
+        return mCategory;
     }
 
     /**
-     * Get the Release Date of the news
+     * Get the Publication Date of the news
      */
-    public String getPublicationDate() {
+    public Date getPublicationDate() {
         return mPublicationDate;
     }
 
@@ -90,5 +92,4 @@ public class News {
     public String getUrl() {
         return mUrl;
     }
-
 }
