@@ -3,7 +3,9 @@
     <dimen name="dimen_5dp">5dp</dimen>
     <dimen name="dimen_10dp">10dp</dimen>
     <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_14dp">14dp</dimen>
     <dimen name="dimen_20dp">20dp</dimen>
     <dimen name="title_size">20sp</dimen>
     <dimen name="font_small">13sp</dimen>
+    <dimen name="small_font">12sp</dimen>
 </resources>

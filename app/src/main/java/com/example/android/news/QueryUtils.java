@@ -148,7 +148,7 @@ public final class QueryUtils {
         }
 
         // Create an empty ArrayList that we can start adding news to
-        List<News> news = new ArrayList<>();
+        List<News> newsList = new ArrayList<>();
         // Try to parse the JSON response string. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
@@ -169,8 +169,8 @@ public final class QueryUtils {
                 // Extract the value for the key called "title"
                 String title = currentNews.getString("webTitle");
 
-                // Extract the value for the key called "overview"
-                String category = currentNews.getString("sectionName");
+                // Extract the value for the key called "sectionName"
+                String sectionName = currentNews.getString("sectionName");
 
                 //Tags elements
                 JSONArray tags = currentNews.getJSONArray("tags");
@@ -195,19 +195,10 @@ public final class QueryUtils {
                     }
                 }
 
-                // Extract the value for the key called "releaseDate"
-                String url = currentNews.getString("webUrl");
-
-                // Extract the value for the key called "fields" -> "thumbnail"
-                String image = currentNews.getJSONObject("fields").getString("thumbnail");
-                if (image == "") {
-                    image = "http://via.placeholder.com/500x500";
-                }
-
-                // Extract the value for the key called "releaseDate"
+                // Extract the value for the key called "publicationDate"
                 String publicationDate = currentNews.getString("webPublicationDate");
 
-                //Format publication date
+                // Format publication date
                 Date formattedDate = null;
                 try {
                     formattedDate = (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")).parse(publicationDate);
@@ -218,12 +209,21 @@ public final class QueryUtils {
                     Log.e("QueryUtils", "Problem parsing the news date", e);
                 }
 
+                // Extract the value for the key called "url"
+                String url = currentNews.getString("webUrl");
+
+                // Extract the value for the key called "fields" -> "thumbnail"
+                String image = currentNews.getJSONObject("fields").getString("thumbnail");
+                if (image == "") {
+                    image = "http://via.placeholder.com/500x500";
+                }
+
                 // Create a new {@link News} object with the title, overview, releaseDate,
                 // from the JSON response.
-                News news1 = new News(title, category, url, authorCompleteName, formattedDate, image);
+                News news1 = new News(title, sectionName, image, authorCompleteName, formattedDate, url);
 
                 // Add the new {@link News to the list of news.
-                news.add(news1);
+                newsList.add(news1);
             }
 
         } catch (JSONException e) {
@@ -233,6 +233,6 @@ public final class QueryUtils {
             Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
         }
         // Return the list of earthquakes
-        return news;
+        return newsList;
     }
 }

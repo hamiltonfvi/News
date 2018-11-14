@@ -8,38 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Panel">
+    <style name="FontSmall">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/font_small</item>
-        <item name="android:paddingLeft">@dimen/dimen_10dp</item>
-        <item name="android:paddingRight">@dimen/dimen_10dp</item>
-    </style>
-
-    <!-- Panel Title -->
-    <style name="Title" parent="Panel">
-        <item name="android:paddingTop">@dimen/dimen_5dp</item>
-        <item name="android:paddingBottom">@dimen/dimen_5dp</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:typeface">sans</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <!-- Text Description of the News -->
-    <style name="Overview" parent="Panel">
-        <item name="android:background">@color/colorLightGrey</item>
-        <item name="android:paddingTop">@dimen/dimen_16dp</item>
-        <item name="android:paddingBottom">@dimen/dimen_16dp</item>
-        <item name="android:textColor">@color/colorText</item>
-    </style>
-
-    <!-- Text Release Date -->
-    <style name="PublicationDate">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/colorText</item>
-        <item name="android:textSize">@dimen/font_small</item>
-        <item name="android:gravity">end</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
 </resources>

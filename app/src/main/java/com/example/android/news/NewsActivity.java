@@ -1,11 +1,9 @@
 package com.example.android.news;
 
 import android.app.LoaderManager;
-import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -22,13 +20,11 @@ import android.content.Loader;
 
 public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
-    private static final String LOG_TAG = NewsActivity.class.getName();
-
     /**
      * URL for the news data from theguardian.com dataset
      */
     private static final String THE_GUARDIAN_DB_URL =
-            "https://content.guardianapis.com/search?order-by=newest&show-tags=contribuitor&show-fields=thumbnail&q=movies&api-key=f3f378a5-d90f-4c1d-ad21-77c4f50bc08c";
+            "https://content.guardianapis.com/search?show-fields=thumbnail&show-tags=contributor&q=future&order-by=newest&q=future&api-key=f3f378a5-d90f-4c1d-ad21-77c4f50bc08c";
 
     /**
      * Constant value for the news loader ID. We can choose any integer.

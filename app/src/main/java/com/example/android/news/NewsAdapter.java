@@ -37,12 +37,22 @@ public class NewsAdapter extends ArrayAdapter<News> {
         }
 
         // Get the object located at this position in the list
-        final News currentNews = getItem(position);
+        News currentNews = getItem(position);
+
+        // Find the ImageView with the view ID for the Thumbnail Image
+        ImageView imageView = listItemView.findViewById(R.id.image_news_view);
+        // Get the version name from the current object
+        Picasso.get().load(currentNews.getImageNews()).into(imageView);
 
         // Find the TextView with the view ID for the Title
         TextView titleView = listItemView.findViewById(R.id.title_view);
         // Get the version name from the current object
         titleView.setText(currentNews.getTitle());
+
+        // Find the TextView with the view ID for the Category of the news
+        TextView categoryView = listItemView.findViewById(R.id.section_name_view);
+        // Get the version name from the current object
+        categoryView.setText(currentNews.getSectionName());
 
         // Find the TextView with the view ID for the Author
         TextView authorView = listItemView.findViewById(R.id.author_view);
@@ -57,16 +67,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
             authorView.setVisibility(View.GONE);
         }
 
-        // Find the ImageView with the view ID for the Thumbnail Image
-        ImageView imageView = listItemView.findViewById(R.id.image_news_view);
-        // Get the version name from the current object
-        Picasso.get().load(currentNews.getImageNews()).into(imageView);
-
-        // Find the TextView with the view ID for the Category of the news
-        TextView categoryView = listItemView.findViewById(R.id.category_view);
-        // Get the version name from the current object
-        categoryView.setText(currentNews.getCategory());
-
         // Find the TextView with the view ID for the Publication Date of the news
         // Find the TextView with view ID date
         TextView dateView = null;
@@ -75,14 +75,14 @@ public class NewsAdapter extends ArrayAdapter<News> {
             dateView = listItemView.findViewById(R.id.publication_date_view);
             // Format the date string (i.e. "Mar 3, 1984")
             String formattedDate = formatDate(currentNews.getPublicationDate()).concat(",");
-            // Display the date of the current earthquake in that TextView
+            // Display the date of the current news in that TextView
             dateView.setText(formattedDate);
 
             // Find the TextView with view ID time
             timeView = listItemView.findViewById(R.id.publication_time_view);
             // Format the time string (i.e. "4:30PM")
             String formattedTime = formatTime(currentNews.getPublicationDate());
-            // Display the time of the current earthquake in that TextView
+            // Display the time of the current news in that TextView
             timeView.setText(formattedTime);
 
             //Set date & time views as visible
@@ -93,11 +93,6 @@ public class NewsAdapter extends ArrayAdapter<News> {
             dateView.setVisibility(View.GONE);
             timeView.setVisibility(View.GONE);
         }
-
-        // Find the TextView with the view ID for the Url of the news
-        TextView url = listItemView.findViewById(R.id.url_view);
-        // Get the version name from the current object
-        url.setText(currentNews.getUrl());
 
         // Return the list item view tht is now showing the appropriate data
         return listItemView;

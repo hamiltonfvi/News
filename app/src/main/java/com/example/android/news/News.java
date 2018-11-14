@@ -12,7 +12,7 @@ public class News {
     /**
      * Category of the news
      */
-    private String mCategory;
+    private String mSectionName;
 
     /**
      * Author name of the news
@@ -32,21 +32,21 @@ public class News {
     /**
      * Image of the news
      */
-    private String mImageNews;
+    private String mImage;
 
     /**
      * @param title           is the title of the news
-     * @param category        is the category of the news
+     * @param sectionName        is the category of the news
      * @param publicationDate is the publication date of the news
      * @param authorName      is the author of the news
      * @param imageNews       is the image of the news
      * @param url             is the url of the news
      */
-    public News(String title, String authorName, String imageNews, String category, Date publicationDate, String url) {
+    public News(String title, String authorName, String imageNews, String sectionName, Date publicationDate, String url) {
         mTitle = title;
         mAuthorName = authorName;
-        mImageNews = imageNews;
-        mCategory = category;
+        mImage = imageNews;
+        mSectionName = sectionName;
         mPublicationDate = publicationDate;
         mUrl = url;
     }
@@ -62,7 +62,7 @@ public class News {
      * Get the image of the news
      */
     public String getImageNews() {
-        return mImageNews;
+        return mImage;
     }
 
     /**
@@ -75,8 +75,8 @@ public class News {
     /**
      * Get the Category of the news
      */
-    public String getCategory() {
-        return mCategory;
+    public String getSectionName() {
+        return mSectionName;
     }
 
     /**
