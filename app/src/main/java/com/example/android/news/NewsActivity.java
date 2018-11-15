@@ -10,8 +10,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +38,9 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
     private NewsAdapter mAdapter;
 
     /**
-     * TextView that is displayed when the list is empty
+     * Image that is displayed when the list is empty or there is not internet connection
      */
-    private TextView mEmptyStateTextView;
+    private ImageView mEmptyStateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +103,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
             View loadingIndicator = findViewById(R.id.loading_spinner);
             loadingIndicator.setVisibility(View.GONE);
 
-            mEmptyStateTextView.setText(R.string.no_internet_connection);
+            mEmptyStateTextView.setImageResource(R.drawable.no_internet_connection);
         }
     }
 
@@ -121,7 +121,7 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         loadingIndicator.setVisibility(View.GONE);
 
         // Set empty state text to display "No News Found."
-        mEmptyStateTextView.setText(R.string.no_news);
+        mEmptyStateTextView.setImageResource(R.drawable.error_image);
 
         // Clear the adapter of previous news data
         mAdapter.clear();

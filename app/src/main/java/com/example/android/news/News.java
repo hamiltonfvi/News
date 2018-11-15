@@ -36,7 +36,7 @@ public class News {
 
     /**
      * @param title           is the title of the news
-     * @param sectionName        is the category of the news
+     * @param sectionName     is the category of the news
      * @param publicationDate is the publication date of the news
      * @param authorName      is the author of the news
      * @param imageNews       is the image of the news

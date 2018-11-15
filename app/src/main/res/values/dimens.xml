@@ -6,6 +6,6 @@
     <dimen name="dimen_14dp">14dp</dimen>
     <dimen name="dimen_20dp">20dp</dimen>
     <dimen name="title_size">20sp</dimen>
-    <dimen name="font_small">13sp</dimen>
-    <dimen name="small_font">12sp</dimen>
+    <dimen name="font_small">12sp</dimen>
+    <dimen name="error_image_size">500dp</dimen>
 </resources>

@@ -11,10 +11,12 @@
         android:orientation="vertical" />
 
     <!-- Empty view is only visible when the list has no items. -->
-    <TextView
+    <ImageView
+        android:contentDescription="@string/error_image"
         android:id="@+id/empty_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/error_image_size"
+        android:layout_height="@dimen/error_image_size"
+        android:scaleType="fitXY"
         android:layout_centerInParent="true"
         android:textAppearance="?android:textAppearanceMedium" />
 

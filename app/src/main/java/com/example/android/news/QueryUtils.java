@@ -188,7 +188,7 @@ public final class QueryUtils {
 
                     //Author Complete name
                     authorCompleteName = StringUtils.capitalize(authorFirstName.toLowerCase().trim()) + " " + StringUtils.capitalize(authorLastName.toLowerCase().trim());
-                    if (authorFirstName.trim() != "" || authorLastName.trim() != "") {
+                    if (authorFirstName.trim() != null || authorLastName.trim() != null) {
                         authorCompleteName = ("Author: ").concat(authorCompleteName);
                     } else {
                         authorCompleteName = "";
@@ -214,7 +214,7 @@ public final class QueryUtils {
 
                 // Extract the value for the key called "fields" -> "thumbnail"
                 String image = currentNews.getJSONObject("fields").getString("thumbnail");
-                if (image == "") {
+                if (image == null) {
                     image = "http://via.placeholder.com/500x500";
                 }
 

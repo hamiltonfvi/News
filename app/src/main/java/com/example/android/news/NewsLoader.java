@@ -35,7 +35,7 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
      */
     @Override
     public List<News> loadInBackground() {
-        if (mUrl == null){
+        if (mUrl == null) {
             return null;
         }
 

@@ -57,7 +57,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
         // Find the TextView with the view ID for the Author
         TextView authorView = listItemView.findViewById(R.id.author_view);
         // Get the version name from the current object
-        if (currentNews.getAuthorName() != "") {
+        if (currentNews.getAuthorName() != null) {
             authorView.setText(currentNews.getAuthorName());
 
             //Set author name view as visible
