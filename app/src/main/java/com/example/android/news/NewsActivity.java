@@ -118,16 +118,21 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
         String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
         String section = sharedPrefs.getString(getString(R.string.settings_section_key), getString(R.string.settings_section_default));
 
+        //parse breaks apart the URI string that's passed into its parameter
         Uri baseUri = Uri.parse(THE_GUARDIAN_DB_URL);
+
+        //buildUpon prepares the baseUri that we just parsed so we can add query parameters to it
         Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        //Append query parameter and its value
         if (!Search.equals("")) {
             uriBuilder.appendQueryParameter("q", Search);
             orderBy = getString(R.string.settings_order_by_relevance_value);
         }
-        if (Search.equals("") && orderBy.equals(getString(R.string.settings_order_by_relevance_value))) {
+                if (Search.equals("") && orderBy.equals(getString(R.string.settings_order_by_relevance_value))) {
             orderBy = getString(R.string.settings_order_by_newest_value);
         }
-        if (!section.equals("")) {
+                if (!section.equals("")) {
             if (!section.equals(getString(R.string.settings_section_default_value))) {
                 uriBuilder.appendQueryParameter("section", section);
             }
