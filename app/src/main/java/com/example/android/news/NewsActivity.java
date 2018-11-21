@@ -3,11 +3,16 @@ package com.example.android.news;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.net.Uri;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -16,15 +21,13 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Loader;
-
 public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<News>> {
 
     /**
      * URL for the news data from theguardian.com dataset
      */
     private static final String THE_GUARDIAN_DB_URL =
-            "https://content.guardianapis.com/search?show-fields=thumbnail&show-tags=contributor&q=future&order-by=newest&q=future&api-key=f3f378a5-d90f-4c1d-ad21-77c4f50bc08c";
+            "https://content.guardianapis.com/search?&api-key=f3f378a5-d90f-4c1d-ad21-77c4f50bc08c&show-fields=thumbnail&show-tags=contributor";
 
     /**
      * Constant value for the news loader ID. We can choose any integer.
@@ -109,8 +112,30 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
-        // Create a new loader for the given URL
-        return new NewsLoader(this, THE_GUARDIAN_DB_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String Search = sharedPrefs.getString(getString(R.string.settings_search_key), getString(R.string.settings_Search_default));
+        String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
+        String section = sharedPrefs.getString(getString(R.string.settings_section_key), getString(R.string.settings_section_default));
+
+        Uri baseUri = Uri.parse(THE_GUARDIAN_DB_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+        if (!Search.equals("")) {
+            uriBuilder.appendQueryParameter("q", Search);
+            orderBy = getString(R.string.settings_order_by_relevance_value);
+        }
+        if (Search.equals("") && orderBy.equals(getString(R.string.settings_order_by_relevance_value))) {
+            orderBy = getString(R.string.settings_order_by_newest_value);
+        }
+        if (!section.equals("")) {
+            if (!section.equals(getString(R.string.settings_section_default_value))) {
+                uriBuilder.appendQueryParameter("section", section);
+            }
+        }
+
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -136,5 +161,22 @@ public class NewsActivity extends AppCompatActivity implements LoaderManager.Loa
 
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
