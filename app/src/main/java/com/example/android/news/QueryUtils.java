@@ -172,6 +172,13 @@ public final class QueryUtils {
                 // Extract the value for the key called "sectionName"
                 String sectionName = currentNews.getString("sectionName");
 
+                // Extract the value for the key called "fields" -> "thumbnail"
+                String image = currentNews.getJSONObject("fields").getString("thumbnail");
+
+                if (image == null) {
+                    image = "http://via.placeholder.com/500x500";
+                }
+
                 //Tags elements
                 JSONArray tags = currentNews.getJSONArray("tags");
 
@@ -211,12 +218,6 @@ public final class QueryUtils {
 
                 // Extract the value for the key called "url"
                 String url = currentNews.getString("webUrl");
-
-                // Extract the value for the key called "fields" -> "thumbnail"
-                String image = currentNews.getJSONObject("fields").getString("thumbnail");
-                if (image == null) {
-                    image = "http://via.placeholder.com/500x500";
-                }
 
                 // Create a new {@link News} object with the title, overview, releaseDate,
                 // from the JSON response.
